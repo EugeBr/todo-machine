@@ -3,13 +3,24 @@ import { TodoCounter } from './TodoCounter';
 import { TodoSearch } from './TodoSearch';
 import { TodoList } from './TodoList';
 import { CreateTodoButton } from './CreateTodoButton';
+import { TodoItem } from './TodoItem';
+
+const todos = [
+  { text: 'Cortar cebolla', completed: false },
+  { text: 'Tomar el curso intro a React', completed: false },
+  { text: 'Lllorar con la llorona', completed: false }
+]
 
 function App() {
   return (
     <>
       <TodoCounter />
       <TodoSearch />
-      <TodoList />
+      <TodoList>
+      {todos.map(todo => (
+            <TodoItem />
+          ))}
+      </TodoList>
       <CreateTodoButton />
     </>
   );
