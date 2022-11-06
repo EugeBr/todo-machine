@@ -1,4 +1,5 @@
 //import './App.css';
+import { TodoCounter } from './TodoCounter';
 
 const todos = [
   { text: 'Cortar cebolla', completed: false },
@@ -8,16 +9,20 @@ const todos = [
 
 function App() {
   return (
-    <TodoCounter />
-    <h2>Has Completado 2 de 3 TODOs</h2>
+    <>
+      <TodoCounter />
 
-    <TodoSearch />
-    <Input placeholder="Cebolla" />
-    <TodoList>
-      <TodoItem />
-    </TodoList>
+      {/* <TodoSearch /> */}
+      <input placeholder="Cebolla" />
+      {/* <TodoList>
+        {todos.map(todo => (
+          <TodoItem />
+        ))}
+      </TodoList> */}
 
-    <CreateTodoButton />
+      {/* <CreateTodoButton /> */}
+      <button>+</button>
+    </>
   );
 }
 
