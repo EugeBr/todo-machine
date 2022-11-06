@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+//import './App.css';
+
+const todos = [
+  { text: 'Cortar cebolla', completed: false },
+  { text: 'Tomar el curso intro a React', completed: false },
+  { text: 'Lllorar con la llorona', completed: false }
+]
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TodoCounter />
+    <h2>Has Completado 2 de 3 TODOs</h2>
+
+    <TodoSearch />
+    <Input placeholder="Cebolla" />
+    <TodoList>
+      <TodoItem />
+    </TodoList>
+
+    <CreateTodoButton />
   );
 }
 
