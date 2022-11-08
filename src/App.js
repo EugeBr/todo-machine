@@ -19,6 +19,18 @@ function App() {
   const completedTodos = todos.filter(todo => !!todo.completed).length; //filtra los que son compeleted == true
   const totalTodos = todos.length;
 
+  let searchedTodos = [];
+
+  if (!searchValue.length >= 1) {
+    searchedTodos = todos;
+  } else {
+    searchedTodos = todos.filter(todo => {
+      const todoText = todo.text.toLocaleLowerCase();
+      const searchText = searchValue.toLowerCase();
+      todoText.includes(searchText);
+    });
+  }
+
   return (
     <>
       <TodoCounter
@@ -30,7 +42,7 @@ function App() {
         setSearchValue={setSearchValue}
       />
       <TodoList>
-        {todos.map(todo => (
+        {searchedTodos.map(todo => (
           <TodoItem
             key={todo.text}
             text={todo.text}
