@@ -25,9 +25,9 @@ function App() {
     searchedTodos = todos;
   } else {
     searchedTodos = todos.filter(todo => {
-      const todoText = todo.text.toLocaleLowerCase();
+      const todoText = todo.text.toLowerCase();
       const searchText = searchValue.toLowerCase();
-      todoText.includes(searchText);
+      return todoText.includes(searchText);
     });
   }
 
