@@ -29,7 +29,24 @@ function App() {
       const searchText = searchValue.toLowerCase();
       return todoText.includes(searchText);
     });
-  }
+  };
+
+  const completeTodos = (text) => {
+    const todoIndex = todos.findIndex(todo => todo.text === text);
+
+    const newTodos = [...todos];
+
+    //*una forma de hacerlo
+    /* todos[todoIndex] = {
+      text: todos[todoIndex].text,
+      completed: true
+    }*/
+
+    //*mejor forma de hacerlo
+    newTodos[todoIndex].completed = true;
+
+    setTodos(newTodos);
+  };
 
   return (
     <>
@@ -47,6 +64,7 @@ function App() {
             key={todo.text}
             text={todo.text}
             completed={todo.completed}
+            onComplete={() => completeTodos(todo.text)}
           />
         ))}
       </TodoList>
