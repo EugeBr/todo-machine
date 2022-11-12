@@ -1,14 +1,27 @@
 import React from "react";
 import { AppUI } from "./AppUI";
 
-const defaultTodos = [
-  { text: 'Cortar cebolla', completed: false },
-  { text: 'Tomar el curso intro a React', completed: true },
-  { text: 'Llorar con la llorona', completed: false }
-]
+// const defaultTodos = [
+//   { text: 'Cortar cebolla', completed: false },
+//   { text: 'Tomar el curso intro a React', completed: true },
+//   { text: 'Llorar con la llorona', completed: false }
+// ]
 
 function App() {
-  const [todos, setTodos] = React.useState(defaultTodos);
+  // Traemos nuestros TODOs almacenados
+  const localStorageTodos = localStorage.getItem('TODOS_V1');
+  let parsedTodos;
+
+  if (!localStorageTodos) {
+    // Si el usuario es nuevo no existe un item en localStorage, por lo tanto guardamos uno con un array vacío
+    localStorage.setItem('TODOS_V1', JSON.stringify([]));
+    parsedTodos = [];
+  } else {
+    // Si existen TODOs en el localStorage los regresamos como nuestros todos
+    parsedTodos = JSON.parse(localStorageTodos);
+  }
+
+  const [todos, setTodos] = React.useState(parsedTodos);
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodos = todos.filter(todo => !!todo.completed).length; //filtra los que son compeleted == true
