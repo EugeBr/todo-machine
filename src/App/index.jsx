@@ -1,27 +1,44 @@
 import React from "react";
 import { AppUI } from "./AppUI";
 
-// const defaultTodos = [
+// const defaultItem = [
 //   { text: 'Cortar cebolla', completed: false },
 //   { text: 'Tomar el curso intro a React', completed: true },
 //   { text: 'Llorar con la llorona', completed: false }
-// ]
+// ];
 
-function App() {
+function useLocalStorage(itemName, initialValue) {
   // Traemos nuestros TODOs almacenados
-  const localStorageTodos = localStorage.getItem('TODOS_V1');
-  let parsedTodos;
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
 
-  if (!localStorageTodos) {
+  if (!localStorageItem) {
     // Si el usuario es nuevo no existe un item en localStorage, por lo tanto guardamos uno con un array vacío
-    localStorage.setItem('TODOS_V1', JSON.stringify([]));
-    parsedTodos = [];
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
   } else {
     // Si existen TODOs en el localStorage los regresamos como nuestros todos
-    parsedTodos = JSON.parse(localStorageTodos);
+    parsedItem = JSON.parse(localStorageItem);
   }
 
-  const [todos, setTodos] = React.useState(parsedTodos);
+  //creamos un custom hook
+  const [item, setItem] = React.useState(parsedItem);
+
+  //Persistir nuevas actualizaciones en LocalStorage
+  const saveItem = (newItem) => {
+    const stringifiedItem = JSON.stringify(newItem);
+    localStorage.setItem(itemName, stringifiedItem);
+    setItem(newItem);
+  };
+
+  return [
+    item,
+    saveItem,
+  ];
+}
+
+function App() {
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodos = todos.filter(todo => !!todo.completed).length; //filtra los que son compeleted == true
@@ -39,16 +56,8 @@ function App() {
     });
   };
 
-//Persistir nuevas actualizaciones en LocalStorage
-const saveTodos = (newTodos) => {
-  const stringifiedTodos = JSON.stringify(newTodos);
-  localStorage.setItem('TODOS_V1', stringifiedTodos);
-  setTodos(newTodos);
-};
-
   const completeTodo = (text) => {
     const todoIndex = todos.findIndex(todo => todo.text === text);
-
     const newTodos = [...todos];
 
     //*una forma de hacerlo
