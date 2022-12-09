@@ -6,6 +6,7 @@ import { TodoList } from '../TodoList';
 import { CreateTodoButton } from '../CreateTodoButton';
 import { TodoItem } from '../TodoItem';
 import { Modal } from '../Modal';
+import { TodoForm } from '../TodoForm';
 
 function AppUI() {
     const {
@@ -40,7 +41,7 @@ function AppUI() {
 
             {!!openModal && (
                 <Modal>
-                    <p>ALGO</p>
+                    <TodoForm />
                 </Modal>
             )}
 
